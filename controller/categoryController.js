@@ -3,6 +3,7 @@ const Category = require("../models/CategoryModel");
 const categoryController = {
     getCategories: async (req, res) => {
     console.log("Categoories");
+    
     try {
       const categories = await Category.find().populate('products').exec();
       res.json(categories);
