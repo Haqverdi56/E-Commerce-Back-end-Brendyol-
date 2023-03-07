@@ -46,15 +46,9 @@ const productSchema = Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
     },
-  ],
-  rating: {
-    type: Number,
-    default: 4,
-    min: 0,
-    max: 5,
-  },
+  ]
 });
 
-// const productModel = mongoose.model("Product", productSchema);
+const productModel = mongoose.model("Product", productSchema);
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = productModel;

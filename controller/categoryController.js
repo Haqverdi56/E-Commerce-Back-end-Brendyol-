@@ -3,9 +3,9 @@ const Category = require("../models/CategoryModel");
 const categoryController = {
     getCategories: async (req, res) => {
     console.log("Categoories");
-    
+
     try {
-      const categories = await Category.find().populate('products').exec();
+      const categories = await Category.find().populate('parent').populate('children').exec();
       res.json(categories);
     } catch (err) {
       res.status(500).json({ message: err.message });

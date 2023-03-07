@@ -2,15 +2,29 @@ const Product = require("../models/ProductModel");
 
 const productController = {
   getAllProducts: async (req, res) => {
-    // console.log("getAll");
+    const limitValue = parseInt(req.query.limit);
+    const skipValue = parseInt(req.query.skip) || 0;
     try {
-      const products = await Product.find().populate('category').exec();
+      const products = await Product.find().skip(skipValue).limit(limitValue).populate('category').exec();
       res.json(products);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   },
-
+  getProductById: async (req, res, next) => {
+    let product;
+    try {
+      product = await Product.findById(req.params.id).populate("category").exec()
+      if (product == null) {
+        return res.status(404).json({ message: "Product not founds." });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+    console.log(product);
+    res.json(product)
+    next();
+  },
   createProduct: async (req, res) => {
     const product = new Product({
       title: req.body.title,
@@ -23,7 +37,6 @@ const productController = {
       stock: req.body.stock,
       tags: req.body.tags,
       comments: req.body.comments,
-      rating: req.body.rating,
     });
     
     try {
@@ -33,21 +46,6 @@ const productController = {
       res.status(400).json({ message: err.message });
     }
   },
-  // getProductById: async (req, res, next) => {
-  //   let product;
-  //   try {
-  //     product = await Product.findById(req.params.id)
-  //       .populate("categories")
-  //       .populate("comments");
-  //     if (product == null) {
-  //       return res.status(404).json({ message: "Ürün bulunamadı." });
-  //     }
-  //   } catch (err) {
-  //     return res.status(500).json({ message: err.message });
-  //   }
-  //   res.product = product;
-  //   next();
-  // },
   // updateProduct: async (req, res) => {
   //   if (req.body.name != null) {
   //     res.product.name = req.body.name;

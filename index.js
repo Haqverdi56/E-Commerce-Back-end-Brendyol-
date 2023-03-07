@@ -5,6 +5,8 @@ const { default: mongoose } = require('mongoose');
 const productRouter = require('./routers/productRouter')
 const categoryRouter = require('./routers/categoryRouter')
 const commentRouter = require('./routers/commentRouter')
+const ratingRouter = require('./routers/ratingRouter')
+const userRouter = require('./routers/userRouter')
 
 
 app.use(express.json());
@@ -25,6 +27,8 @@ mongoose.connect(process.env.SECRET_KEY)
 app.use('/api/products', productRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/rating', ratingRouter);
+app.use('/api/users', userRouter);
 app.use('/', function(req, res) {
     res.send("Welcome E-Commerce DataBase")
 });

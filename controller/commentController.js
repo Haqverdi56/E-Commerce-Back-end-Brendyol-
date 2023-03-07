@@ -10,9 +10,9 @@ const commentController = {
     }
   },
   addComment: async (req, res) => {
+    // const productId = req.body.productId
     const comment = new Comment({
-      text: req.body.text,
-      createdAt: req.body.product,
+      text: req.body.text
     });
   
     try {
