@@ -10,9 +10,11 @@ const userSchema = Schema({
         type: String,
         required: true
     },
-    isVerify: {
+    confirmCode: String
+    ,
+    isVerified: {
         type: Boolean,
-        required: true
+        default: false
     },
     favorites: [
         {
