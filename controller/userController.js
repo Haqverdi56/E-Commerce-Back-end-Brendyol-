@@ -6,11 +6,11 @@ let privateKey = "ironmaidenironmaidenironmaidenironmaiden";
 
 const transporter = nodemailer.createTransport({
   direct: true,
-  host: "smtp.mail.ru",
+  host: "smtp.gmail.com",
   port: 465,
   auth: {
-    user: "aarizona3@mail.ru",
-    pass: "0bPD1xnaDfd52awVehKU",
+    user: "ecommercedeveloper1@@gmail.com",
+    pass: "ecommerce1234",
   },
   secure: true,
 });
@@ -50,7 +50,7 @@ const userController = {
           })
           
           var mailOptions = {
-            from: "aarizona3@mail.ru",
+            from: "ecommercedeveloper1@gmail.com",
             to: doc.email,
             subject: "Login Confirm Code",
             text: "Confirm Code: " + confirmCode,
