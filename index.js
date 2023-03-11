@@ -30,7 +30,7 @@ app.use('/api/comments', commentRouter);
 app.use('/api/rating', ratingRouter);
 app.use('/api/users', userRouter);
 app.use('/', function(req, res) {
-    res.send("Welcome E-Commerce DataBase")
+    res.send("Welcome E-Commerce DB")
 });
 
 
