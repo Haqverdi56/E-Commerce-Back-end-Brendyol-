@@ -9,10 +9,10 @@ const ratingRouter = require('./routers/ratingRouter')
 const userRouter = require('./routers/userRouter')
 
 
-require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors())
+require("dotenv").config();
 const port = process.env.PORT || 5000
 
 
