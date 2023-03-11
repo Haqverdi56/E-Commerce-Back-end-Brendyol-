@@ -19,7 +19,7 @@ const port = process.env.PORT || 5000
 mongoose.connect(process.env.SECRET_KEY)
 .then(res=>{
     console.log("Connect");
-})
+}) 
 .catch(err => {
     console.log("err", err);
 })
