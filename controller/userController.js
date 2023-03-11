@@ -9,9 +9,9 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   auth: {
-    user: "ecommercedeveloper1@@gmail.com",
-    pass: "ecommerce1234",
-  },
+    user: "ecommercedeveloper1@gmail.com",
+    pass: "jfptylelkwzosysd",
+  }, 
   secure: true,
 });
 
@@ -24,6 +24,23 @@ const userController = {
       res.status(500).json({ message: err.message });
     }
   },
+  register: async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+      const existingUser = await userModel.findOne({ email });
+
+      if (existingUser) {
+        return res.status(409).json({ message: 'Email already exists' });
+      }
+
+      const newUser = await userModel.create({ email, password });
+      return res.status(201).json(newUser);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Server error' });
+    }
+  },
   login: async (req, res) => {
     let {email, password} = req.body;
     const user = new userModel( {
@@ -34,7 +51,6 @@ const userController = {
       isVerified: false
     })
 
-    console.log("doc 2", req.body);
     userModel.findOne({ email: email, password: password })
       .then (doc => {
         if (doc) {
@@ -68,16 +84,15 @@ const userController = {
       .catch ((err) => {
         res.status(500).json(err);
       })
-      const newUser = await user.save()
   },
   confirmCode: (req, res) => {
     let confirmCode = req.body.confirmCode;
-
+    console.log(req.body);
+    
     userModel.findOne({ confirmCode: confirmCode })
     .then(doc => {
-      console.log('doc 1', doc)
       if (doc) {
-        let token = jwt.sign({ email: "a@a.com" }, privateKey, {
+        let token = jwt.sign({ email: userModel.email }, privateKey, {
           algorithm: "HS256",
           expiresIn: "5h",
         });
