@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   auth: {
     user: "ecommercedeveloper1@gmail.com",
-    pass: "jfptylelkwzosysd",
+    pass: "uzvxyehggdomgaxm",
   }, 
   secure: true,
 });
@@ -87,7 +87,6 @@ const userController = {
   },
   confirmCode: (req, res) => {
     let confirmCode = req.body.confirmCode;
-    console.log(req.body);
     
     userModel.findOne({ confirmCode: confirmCode })
     .then(doc => {
@@ -96,7 +95,7 @@ const userController = {
           algorithm: "HS256",
           expiresIn: "5h",
         });
-        res.json({ token: token });
+        res.json({ token: token, user: doc });
       }
     }) .catch(err => {
       res.status(500).json(err);
