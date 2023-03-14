@@ -25,8 +25,8 @@ const userController = {
     }
   },
   register: async (req, res) => {
-    const { email, password } = req.body;
-
+    const { email, password, userName } = req.body;
+    console.log(req.body);
     try {
       const existingUser = await userModel.findOne({ email });
 
@@ -34,7 +34,7 @@ const userController = {
         return res.status(409).json({ message: 'Email already exists' });
       }
 
-      const newUser = await userModel.create({ email, password });
+      const newUser = await userModel.create({ email, password, userName });
       return res.status(201).json(newUser);
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ const userController = {
     }
   },
   login: async (req, res) => {
-    let {email, password} = req.body;
+    let {email, password, userName} = req.body;
     const user = new userModel( {
       email: email,
       password: password,

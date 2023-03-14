@@ -11,11 +11,12 @@ const ratingController = {
         }
     },
     createRate: async (req, res) => {
+        console.log(req.body);
         const rating = new Rating({
             productId: req.body.productId,
             userId: req.body.userId,
             rating: req.body.rating,
-            comment: req.body.favorites
+            comment: req.body.comment
         });
         
         try {
